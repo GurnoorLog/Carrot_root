@@ -1,0 +1,16 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Web build output
+build/
+*.zip
+
+# Godot run/editor logs
+out.txt
+
+# Artwork source files (exported PNGs under art/ are tracked)
+*.kra
+
+# Third-party editor plugins
+addons/

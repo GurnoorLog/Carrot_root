@@ -1,0 +1,170 @@
+[gd_scene format=3 uid="uid://s1huiklc7w3e"]
+
+[ext_resource type="Script" uid="uid://bgrg50xurirjw" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Texture2D" uid="uid://y8k74cxli4sb" path="res://art/carrot.png" id="2_carrot"]
+[ext_resource type="Texture2D" uid="uid://d7rb1lvs3cmp" path="res://art/terrain.png" id="3_terrain"]
+[ext_resource type="Texture2D" uid="uid://c4u4dscnwh2p6" path="res://art/root.png" id="4_root"]
+[ext_resource type="Script" uid="uid://bk4yw6bp1d58h" path="res://scripts/root.gd" id="5_rootsystem"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tip"]
+radius = 6.0
+
+[node name="Main" type="Node2D" unique_id=475060312]
+script = ExtResource("1_main")
+
+[node name="World" type="Node2D" parent="." unique_id=1957509209]
+
+[node name="Sky" type="ColorRect" parent="World" unique_id=1844349667]
+offset_right = 640.0
+offset_bottom = 108.0
+mouse_filter = 2
+color = Color(0.529412, 0.807843, 0.921569, 1)
+
+[node name="Grass" type="ColorRect" parent="World" unique_id=1988746134]
+offset_top = 108.0
+offset_right = 640.0
+offset_bottom = 144.0
+mouse_filter = 2
+color = Color(0.298039, 0.615686, 0.235294, 1)
+
+[node name="TerrainA" type="TextureRect" parent="World" unique_id=1812166659]
+texture_filter = 1
+texture_repeat = 2
+offset_top = 144.0
+offset_right = 640.0
+offset_bottom = 12684.0
+mouse_filter = 2
+texture = ExtResource("3_terrain")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="TerrainB" type="TextureRect" parent="World" unique_id=1775045574]
+texture_filter = 1
+texture_repeat = 2
+offset_top = 12684.0
+offset_right = 640.0
+offset_bottom = 25224.0
+mouse_filter = 2
+texture = ExtResource("3_terrain")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Carrot" type="Sprite2D" parent="World" unique_id=1811993505]
+texture_filter = 1
+position = Vector2(320, 90)
+texture = ExtResource("2_carrot")
+
+[node name="Root" type="Node2D" parent="World" unique_id=1306465201]
+script = ExtResource("5_rootsystem")
+
+[node name="Trail" type="Node2D" parent="World/Root" unique_id=1555512192]
+
+[node name="Tip" type="Sprite2D" parent="World/Root" unique_id=1481298770]
+z_index = 2
+texture_filter = 1
+texture = ExtResource("4_root")
+
+[node name="Hitbox" type="Area2D" parent="World/Root/Tip" unique_id=386829263]
+collision_layer = 2
+collision_mask = 12
+
+[node name="Shape" type="CollisionShape2D" parent="World/Root/Tip/Hitbox" unique_id=1797953600]
+shape = SubResource("CircleShape2D_tip")
+
+[node name="Rocks" type="Node2D" parent="World" unique_id=1232587695]
+
+[node name="Pickups" type="Node2D" parent="World" unique_id=1137060863]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=853342501]
+layer = 2
+
+[node name="DepthLabel" type="Label" parent="UI" unique_id=906704449]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 220.0
+offset_bottom = 34.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+text = "Depth 0 m"
+
+[node name="ScoreLabel" type="Label" parent="UI" unique_id=706081531]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = 34.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+text = "Score 0"
+horizontal_alignment = 2
+
+[node name="StatusLabel" type="Label" parent="UI" unique_id=1650647186]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 400.0
+offset_bottom = 440.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 20
+text = "Move the cursor to steer the root - R to restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOver" type="Control" parent="UI" unique_id=1530015393]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Dim" type="ColorRect" parent="UI/GameOver" unique_id=216315558]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Title" type="Label" parent="UI/GameOver" unique_id=1428422119]
+layout_mode = 0
+anchor_right = 1.0
+offset_top = 380.0
+offset_bottom = 430.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 44
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Message" type="Label" parent="UI/GameOver" unique_id=1164381629]
+layout_mode = 0
+anchor_right = 1.0
+offset_top = 440.0
+offset_bottom = 480.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+text = "The root could not grow any further."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartHint" type="Label" parent="UI/GameOver" unique_id=142276137]
+layout_mode = 0
+anchor_right = 1.0
+offset_top = 496.0
+offset_bottom = 528.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 20
+text = "Press R to try again"
+horizontal_alignment = 1
+vertical_alignment = 1

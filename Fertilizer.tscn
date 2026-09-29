@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/fertilizer.gd" id="1_fert"]
+[ext_resource type="Texture2D" path="res://art/water.png" id="2_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fert"]
+size = Vector2(38, 50)
+
+[node name="Fertilizer" type="Area2D" groups=["fertilizer"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_fert")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_tex")
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fert")
